@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.badge {
+    border-radius: $border-radius-pill;
+    display: inline-block;
+    padding: 2px $spacing-byte;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: $font-weight-bold;
+    text-align: center;
+    letter-spacing: 0.25px;
+}
+
+.badge-success {
+    background-color: $color-confirm;
+    color: $white;
+}
+
+.badge-refunded {
+    background-color: $color-notify;
+    color: $bodyColor;
+}
+
+.badge-failed {
+    background-color: $color-alert;
+    color: $white;
+}

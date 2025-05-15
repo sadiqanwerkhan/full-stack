@@ -1,0 +1,30 @@
+@import '../../styles/variables.scss';
+
+.transactionList {
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid $n300;
+    border-radius: $spacing-mega;
+    padding: 0px;
+    margin-bottom: $spacing-kilo;
+  
+    li {
+      align-items: center;
+      position: relative;
+      border-bottom: 1px solid $n300;
+      padding: $spacing-giga;
+  
+      &:first-of-type {
+        border-top-left-radius: $spacing-mega;
+        border-top-right-radius: $spacing-mega;
+      }
+  
+      &:last-of-type {
+        border-bottom-left-radius: $spacing-mega;
+        border-bottom-right-radius: $spacing-mega;
+        border-bottom: 0;
+      }
+    }
+  }

@@ -1,0 +1,8 @@
+@import '../../styles/variables.scss';
+
+.grid-li {
+    display: grid;
+    grid-template-columns: 36px min-content 1fr min-content 24px;
+    grid-gap: $spacing-mega;
+    justify-items: start;
+}

@@ -1,0 +1,7 @@
+@import '../styles/variables.scss';
+
+.container {
+  max-width: 880px;
+  margin: $spacing-peta auto;
+  padding: 0 $spacing-mega;
+}

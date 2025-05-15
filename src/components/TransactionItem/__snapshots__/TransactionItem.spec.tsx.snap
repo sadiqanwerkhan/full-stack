@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction Items with card payment should match styles 1`] = `
+<DocumentFragment>
+  <li
+    class="grid-li"
+  >
+    <div>
+      #1
+    </div>
+    <div>
+      11/01/2020
+    </div>
+    <div
+      class="badge badge-refunded"
+    >
+      refunded
+    </div>
+    <span>
+      -14.425,17 €
+    </span>
+    <span
+      aria-label="Paid by card"
+    >
+      💳
+    </span>
+  </li>
+</DocumentFragment>
+`;
+
+exports[`Transaction Items with cash payment should match styles 1`] = `
+<DocumentFragment>
+  <li
+    class="grid-li"
+  >
+    <div>
+      #1
+    </div>
+    <div>
+      11/01/2020
+    </div>
+    <div
+      class="badge badge-refunded"
+    >
+      refunded
+    </div>
+    <span>
+      -14.425,17 €
+    </span>
+    <span
+      aria-label="Paid by cash"
+    >
+      💵
+    </span>
+  </li>
+</DocumentFragment>
+`;

@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.header {
+    width: 100%;
+    background-color: $bodyBg;
+    padding: $spacing-kilo $spacing-mega;
+    border-bottom: 1px solid $n300;
+    line-height: 0;
+}
