@@ -5,10 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "test": "jest --watch",
-    "test:ci": "jest --ci",
     "start": "next start",
-    "lint": "next lint"
+    "test": "jest"
   },
   "browserslist": {
     "production": [
@@ -23,9 +21,9 @@
     ]
   },
   "dependencies": {
-    "next": "14.0.0",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "^14.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -41,8 +39,5 @@
     "jest-environment-jsdom": "^29.7.0",
     "sass": "^1.69.5",
     "typescript": "^5"
-  },
-  "scripts": {
-    "test": "jest"
   }
 }

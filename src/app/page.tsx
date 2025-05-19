@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Page.module.scss";
 import PaymentFilter from "@/components/PaymentFilter/PaymentFilter";
 import LoadMorePagination from "@/components/Pagination/LoadMorePagination";
+import GroupedTransactions from "@/components/GroupedTransactions/GroupedTransactions";
 import { Headline, TransactionItem, TransactionList } from "@/components";
 import { Transaction } from "@/components/TransactionItem";
 import { PaymentType } from "@/types/transaction";
@@ -50,15 +51,14 @@ export default function TransactionsPage() {
   return (
     <div className={styles.container}>
       <Headline>Transactions</Headline>
-      <PaymentFilter
-        selectedType={selectedPayment}
-        onChange={setSelectedPayment}
-      />
-      <TransactionList>
-        {visibleTransactions.map((transaction) => (
-          <TransactionItem key={transaction.id} transaction={transaction} />
-        ))}
-      </TransactionList>
+      <div className={styles.filterWrapper}>
+        <div className={styles.filterLabel}>Payment type</div>
+        <PaymentFilter
+          selectedType={selectedPayment}
+          onChange={setSelectedPayment}
+        />
+      </div>
+      <GroupedTransactions transactions={visibleTransactions} />
       <LoadMorePagination hasMore={hasMore} onLoadMore={handleLoadMore} />
     </div>
   );
