@@ -1,12 +1,9 @@
-@import "../styles/variables.scss";
-
-.container {
-  max-width: 880px;
-  margin: $spacing-peta auto;
-  padding: 0 $spacing-mega;
+.wrapper {
+  text-align: center;
+  margin-top: 1rem;
 }
 
-.loadMore {
+.button {
   padding: 0.5rem 1rem;
   background-color: #2563eb;
   color: white;
@@ -17,6 +14,6 @@
   transition: background-color 0.2s ease;
 }
 
-.loadMore:hover {
+.button:hover {
   background-color: #1d4ed8;
 }

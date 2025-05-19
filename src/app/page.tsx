@@ -1,47 +1,109 @@
+// "use client";
+
+// import React, { useState, useEffect } from "react";
+
+// import styles from "./Page.module.scss";
+// import PaymentFilter from "@/components/PaymentFilter/PaymentFilter";
+// import { Headline, TransactionItem, TransactionList } from "@/components";
+// import { Transaction } from "@/components/TransactionItem";
+// import { TransactionData, PaymentType } from "@/types/transaction";
+
+// export default function TransactionsPage() {
+//   const [transactions, setTransactions] = useState<Transaction[]>([]);
+//   const [selectedPayment, setSelectedPayment] = useState<PaymentType | null>(
+//     null
+//   );
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const res = await fetch("/api/transactions");
+//         const data = await res.json();
+
+//         const parsedTransactions: Transaction[] = data.transactions.map(
+//           (tx: any) => ({
+//             ...tx,
+//             date: new Date(tx.date),
+//           })
+//         );
+
+//         setTransactions(parsedTransactions);
+//       } catch (error) {
+//         console.error("Failed to fetch transactions:", error);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const filteredTransactions = selectedPayment
+//     ? transactions.filter((tx) => tx.paymentMethod === selectedPayment)
+//     : transactions;
+
+//   return (
+//     <div className={styles.container}>
+//       <Headline>Transactions</Headline>
+//       <PaymentFilter
+//         selectedType={selectedPayment}
+//         onChange={setSelectedPayment}
+//       />
+//       <TransactionList>
+//         {filteredTransactions.map((transaction) => (
+//           <TransactionItem key={transaction.id} transaction={transaction} />
+//         ))}
+//       </TransactionList>
+//     </div>
+//   );
+// }
+
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./Page.module.scss";
 import PaymentFilter from "@/components/PaymentFilter/PaymentFilter";
+import LoadMorePagination from "@/components/Pagination/LoadMorePagination";
 import { Headline, TransactionItem, TransactionList } from "@/components";
 import { Transaction } from "@/components/TransactionItem";
-import { TransactionData, PaymentType } from "@/types/transaction";
+import { PaymentType } from "@/types/transaction";
 
 export default function TransactionsPage() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+  const [visibleCount, setVisibleCount] = useState(20);
   const [selectedPayment, setSelectedPayment] = useState<PaymentType | null>(
     null
   );
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTransactions = async () => {
       try {
         const res = await fetch("/api/transactions");
         const data = await res.json();
-
-        const parsedTransactions: Transaction[] = data.transactions.map(
-          (tx: any) => ({
-            ...tx,
-            date: new Date(tx.date),
-          })
-        );
-        console.log("Fetched transactions:", data.transactions);
-
-        setTransactions(parsedTransactions);
+        const parsed: Transaction[] = data.transactions.map((tx: any) => ({
+          ...tx,
+          date: new Date(tx.date),
+        }));
+        setAllTransactions(parsed);
       } catch (error) {
         console.error("Failed to fetch transactions:", error);
       }
     };
 
-    fetchData();
+    fetchTransactions();
   }, []);
 
-  const filteredTransactions = selectedPayment
-    ? transactions.filter((tx) => tx.paymentMethod === selectedPayment)
-    : transactions;
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [selectedPayment]);
 
-  console.log("Filtered:", filteredTransactions);
+  const filtered = selectedPayment
+    ? allTransactions.filter((tx) => tx.paymentMethod === selectedPayment)
+    : allTransactions;
+
+  const visibleTransactions = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
+
+  const handleLoadMore = () => setVisibleCount((prev) => prev + 20);
 
   return (
     <div className={styles.container}>
@@ -51,10 +113,11 @@ export default function TransactionsPage() {
         onChange={setSelectedPayment}
       />
       <TransactionList>
-        {filteredTransactions.map((transaction) => (
+        {visibleTransactions.map((transaction) => (
           <TransactionItem key={transaction.id} transaction={transaction} />
         ))}
       </TransactionList>
+      <LoadMorePagination hasMore={hasMore} onLoadMore={handleLoadMore} />
     </div>
   );
 }
