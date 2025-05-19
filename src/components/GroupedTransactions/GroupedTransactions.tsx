@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./GroupedTransactions.module.scss";
 import { Transaction } from "@/components/TransactionItem";
 import { TransactionItem } from "@/components/TransactionItem";
@@ -30,29 +30,27 @@ const calculateProfit = (transactions: Transaction[]) => {
 const GroupedTransactions: React.FC<GroupedTransactionsProps> = ({
   transactions,
 }) => {
-  const grouped = groupByDate(transactions);
+  const grouped = useMemo(() => groupByDate(transactions), [transactions]);
 
   return (
-    <div className={styles.wrapper}>
+    <>
       {Object.entries(grouped).map(([date, txs]) => (
         <div key={date} className={styles.group}>
           <div className={styles.header}>
             <span className={styles.date}>{date}</span>
             <span className={styles.profit}>
-              Daily Profit: €{calculateProfit(txs).toFixed(2)}
+              {calculateProfit(txs).toFixed(2)} €
             </span>
           </div>
           <div className={styles.items}>
             {txs.map((tx) => (
-              <div key={tx.id} className={styles.transactionWrapper}>
-                <TransactionItem transaction={tx} />
-              </div>
+              <TransactionItem key={tx.id} transaction={tx} />
             ))}
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
-export default GroupedTransactions;
+export default React.memo(GroupedTransactions);

@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import styles from "./Page.module.scss";
 import PaymentFilter from "@/components/PaymentFilter/PaymentFilter";
 import LoadMorePagination from "@/components/Pagination/LoadMorePagination";
 import GroupedTransactions from "@/components/GroupedTransactions/GroupedTransactions";
-import { Headline, TransactionItem, TransactionList } from "@/components";
+import { Headline } from "@/components";
 import { Transaction } from "@/components/TransactionItem";
 import { PaymentType } from "@/types/transaction";
 
@@ -43,7 +43,10 @@ export default function TransactionsPage() {
     ? allTransactions.filter((tx) => tx.paymentMethod === selectedPayment)
     : allTransactions;
 
-  const visibleTransactions = filtered.slice(0, visibleCount);
+  const visibleTransactions = useMemo(
+    () => filtered.slice(0, visibleCount),
+    [filtered, visibleCount]
+  );
   const hasMore = visibleCount < filtered.length;
 
   const handleLoadMore = () => setVisibleCount((prev) => prev + 20);

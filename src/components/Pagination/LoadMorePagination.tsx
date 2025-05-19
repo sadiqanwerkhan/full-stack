@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import styles from "./LoadMorePagination.module.scss";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   onLoadMore: () => void;
 }
 
-const LoadMorePagination: React.FC<Props> = ({ hasMore, onLoadMore }) => {
+const LoadMorePagination = memo(({ hasMore, onLoadMore }: Props) => {
   if (!hasMore) return null;
 
   return (
@@ -22,6 +22,6 @@ const LoadMorePagination: React.FC<Props> = ({ hasMore, onLoadMore }) => {
       </button>
     </div>
   );
-};
+});
 
 export default LoadMorePagination;

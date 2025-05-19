@@ -1,9 +1,9 @@
-import React, { FC, PropsWithChildren } from "react";
+import React, { FC, PropsWithChildren, memo } from "react";
 
 import styles from "./TransactionList.module.scss";
 
-const TransactionList: FC<PropsWithChildren> = ({ children }) => {
+const TransactionList = memo(({ children }: PropsWithChildren) => {
   return <ul className={styles.transactionList}>{children}</ul>;
-};
+});
 
 export { TransactionList };
