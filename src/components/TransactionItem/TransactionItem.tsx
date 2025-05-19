@@ -22,6 +22,7 @@ export type Transaction = {
   status: PaymentStatus;
   currency: string;
   paymentMethod: PaymentMethods;
+  paymentType: "card" | "cash";
 };
 
 interface TransactionItemProps {

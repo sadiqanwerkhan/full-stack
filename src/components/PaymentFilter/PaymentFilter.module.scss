@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.active {
+  background-color: #2563eb;
+  color: white;
+}
