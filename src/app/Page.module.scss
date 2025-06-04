@@ -1,0 +1,27 @@
+@import "../styles/variables.scss";
+
+.container {
+  max-width: 880px;
+  margin: $spacing-peta auto;
+  padding: 0 $spacing-mega;
+}
+
+.loadMore {
+  padding: 0.5rem 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.loadMore:hover {
+  background-color: #1d4ed8;
+}
+
+.filterLabel {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,112 @@
+/* Fonts */
+$FONTS_BASE_URL: 'https://static.sumup.com/fonts/latin-greek-cyrillic';
+
+$font-default: aktiv-grotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-mono: Consolas, monaco, monospace;
+
+/* Colors */
+$black: #000;
+$white: #fff;
+
+/* Neutral Colors */
+$n100: #F5F5F5;
+$n200: #E6E6E6;
+$n300: #CCC;
+$n500: #999;
+$n700: #666;
+$n800: #333;
+$n900: #1A1A1A;
+
+/* Blue Colors */
+$b100: #F0F6FF;
+$b200: #DAEAFF;
+$b300: #AFD0FE;
+$b400: #7FB5FF;
+$b500: #3063E9;
+$b700: #234BC3;
+$b900: #1A368E;
+
+/* Green Colors */
+$g100: #E4EABB;
+$g200: #D4DB8F;
+$g300: #BED630;
+$g500: #8CC13F;
+$g700: #138849;
+$g900: #356560;
+
+/* Red Colors */
+$r100: #F4CBCB;
+$r200: #EDA2A2;
+$r300: #EA7A7A;
+$r500: #D23F47;
+$r700: #B22426;
+$r900: #941618;
+
+/* Yellow Colors */
+$y100: #F2E9C7;
+$y200: #EDDD8E;
+$y300: #F6CC1B;
+$y500: #D8A413;
+$y700: #AD7A14;
+$y900: #725514;
+
+/* Violet colors */
+$v100: #E9CFF2;
+$v200: #D7A9DC;
+$v300: #C781C9;
+$v500: #CA58FF;
+$v700: #8928A2;
+$v900: #5F1D6B;
+
+/* Orange Colors */
+$o100: #EFD0BB;
+$o200: #F7B97C;
+$o300: #ED7000;
+$o500: #CE6C0B;
+$o700: #8E4503;
+$o900: #66391B;
+
+/* Primary Colors */
+$p100: $b100;
+$p200: $b200;
+$p300: $b300;
+$p400: $b400;
+$p500: $b500;
+$p700: $b700;
+$p900: $b900;
+
+/* Spacing */
+$spacing-bit: 4px;
+$spacing-byte: 8px;
+$spacing-kilo: 12px;
+$spacing-mega: 16px;
+$spacing-giga: 24px;
+$spacing-tera: 32px;
+$spacing-peta: 40px;
+$spacing-exa: 48px;
+$spacing-zetta: 56px;
+
+$color-info: #3063E9;
+$color-confirm: #138849;
+$color-alert: #D23F47;
+$color-notify: #F5C625;
+
+
+/* Font Sizes */
+$font-weight-bold: 700;
+$font-weight-regular: 400;
+
+/* Border radius */
+$border-radius-circle: 100%;
+
+/* HACK: By providing a very large absolute size, the browser picks the maximum size in one dimension. */
+$border-radius-pill: 999999px;
+
+/* Misc */
+$max-width: 1100px;
+
+$bodyColor: $n900;
+$bodyBg: $white;
+
+$shadow: rgba(12, 15, 20, 0.07);
+$overlay: rgba(0, 0, 0, 0.4);

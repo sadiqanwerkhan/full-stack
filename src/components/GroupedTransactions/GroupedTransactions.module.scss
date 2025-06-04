@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.group {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.date {
+  color: #111;
+}
+
+.profit {
+  color: #10b981;
+}
+
+.transactionWrapper {
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.transactionWrapper:hover {
+  background-color: #f0f0f0;
+}

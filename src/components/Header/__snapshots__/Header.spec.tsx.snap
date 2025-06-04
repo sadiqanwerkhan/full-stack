@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should render matching default styles 1`] = `
+<DocumentFragment>
+  <header
+    class="header"
+  >
+    <img
+      alt="SumUp Logo"
+      data-nimg="1"
+      decoding="async"
+      height="37"
+      loading="lazy"
+      src="/logo.svg"
+      style="color: transparent;"
+      width="125"
+    />
+  </header>
+</DocumentFragment>
+`;

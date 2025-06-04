@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Headline should render and match styles 1`] = `
+<DocumentFragment>
+  <h1
+    class="headline headlineOne"
+  >
+    Headline
+  </h1>
+</DocumentFragment>
+`;

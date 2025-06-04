@@ -1,0 +1,19 @@
+.wrapper {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}
