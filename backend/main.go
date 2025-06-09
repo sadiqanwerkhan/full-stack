@@ -86,9 +86,19 @@ func main() {
 	// Connect to PostgreSQL
 	db.Init()
 
-	http.HandleFunc("/api/hello", helloHandler)
-	
-	http.HandleFunc("/api/messages", func(w http.ResponseWriter, r *http.Request) {
+http.HandleFunc("/api/messages", func(w http.ResponseWriter, r *http.Request) {
+	//  CORS headers
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	//  Handle OPTIONS method (preflight request from browser)
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	//  Route logic
 	if r.Method == http.MethodPost {
 		createMessageHandler(w, r)
 	} else if r.Method == http.MethodGet {
@@ -97,7 +107,6 @@ func main() {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 })
-
 
 
 	port := ":8080"
