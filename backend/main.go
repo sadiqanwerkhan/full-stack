@@ -5,28 +5,31 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"backend/db"
 )
 
+// Message struct
+type Message struct {
+	ID      int    `json:"id,omitempty"`
+	Content string `json:"content"`
+}
+
+// Handlers
+
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Content-Type", "application/json")
+	setHeaders(w)
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, `{"message":"Hello from Go backend!"}`)
 }
 
 func createMessageHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Content-Type", "application/json")
+	setHeaders(w)
 
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
-	}
-
-	type Message struct {
-		Content string `json:"content"`
 	}
 
 	var msg Message
@@ -47,8 +50,7 @@ func createMessageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getMessagesHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Content-Type", "application/json")
+	setHeaders(w)
 
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -62,13 +64,7 @@ func getMessagesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rows.Close()
 
-	type Message struct {
-		ID      int    `json:"id"`
-		Content string `json:"content"`
-	}
-
 	var messages []Message
-
 	for rows.Next() {
 		var msg Message
 		if err := rows.Scan(&msg.ID, &msg.Content); err != nil {
@@ -81,33 +77,84 @@ func getMessagesHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(messages)
 }
 
+func deleteMessageHandler(w http.ResponseWriter, r *http.Request) {
+	setHeaders(w)
+
+	if r.Method != http.MethodDelete {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Extract ID from URL
+	idStr := r.URL.Path[len("/api/messages/"):]
+	if idStr == "" {
+		http.Error(w, "ID is required", http.StatusBadRequest)
+		return
+	}
+
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	result, err := db.DB.Exec("DELETE FROM messages WHERE id = $1", id)
+	if err != nil {
+		http.Error(w, "Failed to delete message", http.StatusInternalServerError)
+		return
+	}
+
+	rowsAffected, _ := result.RowsAffected()
+	if rowsAffected == 0 {
+		http.Error(w, "Message not found", http.StatusNotFound)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
+// CORS helper
+func setHeaders(w http.ResponseWriter) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+}
 
 func main() {
 	// Connect to PostgreSQL
 	db.Init()
 
-http.HandleFunc("/api/messages", func(w http.ResponseWriter, r *http.Request) {
-	//  CORS headers
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	// Routes
 
-	//  Handle OPTIONS method (preflight request from browser)
-	if r.Method == http.MethodOptions {
-		w.WriteHeader(http.StatusOK)
-		return
-	}
+	http.HandleFunc("/api/messages", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodOptions {
+			setHeaders(w)
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		if r.Method == http.MethodPost {
+			createMessageHandler(w, r)
+		} else if r.Method == http.MethodGet {
+			getMessagesHandler(w, r)
+		} else {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
 
-	//  Route logic
-	if r.Method == http.MethodPost {
-		createMessageHandler(w, r)
-	} else if r.Method == http.MethodGet {
-		getMessagesHandler(w, r)
-	} else {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-})
-
+	// DELETE route with ID param
+	http.HandleFunc("/api/messages/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodOptions {
+			setHeaders(w)
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		if r.Method == http.MethodDelete {
+			deleteMessageHandler(w, r)
+		} else {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
 
 	port := ":8080"
 	fmt.Println("🚀 Backend running at http://localhost" + port)
