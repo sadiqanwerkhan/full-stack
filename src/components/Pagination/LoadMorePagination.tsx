@@ -8,7 +8,10 @@ interface Props {
   onLoadMore: () => void;
 }
 
-const LoadMorePagination = memo(({ hasMore, onLoadMore }: Props) => {
+const LoadMorePagination = memo(function LoadMorePagination({
+  hasMore,
+  onLoadMore,
+}: Props) {
   if (!hasMore) return null;
 
   return (
@@ -23,5 +26,7 @@ const LoadMorePagination = memo(({ hasMore, onLoadMore }: Props) => {
     </div>
   );
 });
+
+LoadMorePagination.displayName = "LoadMorePagination";
 
 export default LoadMorePagination;
