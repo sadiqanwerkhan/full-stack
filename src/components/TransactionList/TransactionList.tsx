@@ -1,11 +1,12 @@
-import React, { FC, PropsWithChildren, memo } from "react";
+import React, { memo, PropsWithChildren } from "react";
 import styles from "./TransactionList.module.scss";
 
-const TransactionList: FC<PropsWithChildren> = ({ children }) => {
+const TransactionList = memo(function TransactionList({
+  children,
+}: PropsWithChildren) {
   return <ul className={styles.transactionList}>{children}</ul>;
-};
+});
 
 TransactionList.displayName = "TransactionList";
 
-export const MemoizedTransactionList = memo(TransactionList);
 export { TransactionList };
